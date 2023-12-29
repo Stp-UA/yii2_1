@@ -1,0 +1,79 @@
+<?php
+
+namespace app\models;
+
+use Yii;
+use yii\db\ActiveRecord;
+use yii\behaviors\TimestampBehavior;
+
+/**
+ * This is the model class for table "articles".
+ *
+ * @property int $id
+ * @property int $art_id
+ * @property string $url
+ * @property string $title
+ * @property string $text
+ * @property int $created_at
+ * @property int $updated_at
+ */
+class Articles extends ActiveRecord
+{
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::class,
+                'value' => time(),
+            ],
+        ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function tableName()
+    {
+        return 'articles';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+
+    public function rules()
+    {
+        return [
+            [['url', 'title', 'text'], 'required'],
+            [['created_at', 'updated_at'], 'default', 'value' => function () {
+                return time();
+            }],
+            [['text'], 'string'],
+            [['created_at', 'updated_at'], 'integer'],
+            [['url'], 'string', 'max' => 100],
+            [['title'], 'string', 'max' => 300],
+            [['url'], 'unique'],
+        ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'art_id' => 'Article ID',
+            'url' => 'Url',
+            'title' => 'Title',
+            'text' => 'Text',
+            'created_at' => 'Created At',
+            'updated_at' => 'Updated At',
+        ];
+    }
+
+    public function getLang()
+    {
+        return $this->hasOne(ArticlesLang::class, ['art_id' => 'id'])->andWhere(['lang' => Yii::$app->language]);
+    }
+}
