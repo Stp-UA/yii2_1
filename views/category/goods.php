@@ -1,8 +1,6 @@
 <?php
 
 /** @var yii\web\View $this */
-/** @var yii\bootstrap5\ActiveForm $form */
-/** @var app\models\ContactForm $model */
 
 require_once(Yii::getAlias('@common') . '\func\myFunctions.php');
 
@@ -43,6 +41,7 @@ $lang = Yii::$app->language;
                                 <div class="card-body">
                                     <p class="card-title" style="font-size: .8rem;"><?= $item->lang->title ?></p>
                                     <h5 class="card-text text-center"><?= number_format($item->cost, 2, ',', ' ') ?> uah</h5>
+                                    <button class="btn btn-success add-goods-to-card" data-articul="<?= $goods->id ?>">add to cart</button>
                                     <p class="text-end"><a href="<?= '/' . $lang . '/category/' . $cat->url . '/' . $item->url ?>" class="btn btn-primary">Go </a></p>
                                 </div>
                             </div>

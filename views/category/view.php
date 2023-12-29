@@ -4,7 +4,6 @@
 /** @var yii\bootstrap5\ActiveForm $form */
 /** @var app\models\ContactForm $model */
 
-
 use yii\bootstrap5\Html;
 
 $this->title = Yii::t('app', $cat->lang->title);

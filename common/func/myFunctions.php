@@ -1,6 +1,6 @@
 <?php
 
-function truncate($str, $len)
+function truncate(string $str, int $len): string
 {
     if (strlen($str) < $len + 1) {
         return $str;
